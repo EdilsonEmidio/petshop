@@ -22,5 +22,8 @@ Route::post('/search_products',[HomeController::class, 'search'])->middleware('a
 Route::post('/buy_product', [HomeController::class,'buy'])->middleware
 ('auth:sanctum');
 
+Route::post('/remove_product', [HomeController::class,'removeProduct'])->middleware
+('auth:sanctum');
+
 Route::post('/your_products', [HomeController::class,'yourProducts'])->middleware
 ('auth:sanctum');

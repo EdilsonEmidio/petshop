@@ -57,7 +57,8 @@ export default function Sidebar(){
               nome={product.name} 
               descricao={product.description} 
               preco={product.price}
-              compravel={false}/>
+              compravel={false}
+              removiveu={true}/>
           ))
         }
 

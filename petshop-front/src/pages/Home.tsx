@@ -77,7 +77,8 @@ export default function Home(){
                 nome={product.name} 
                 descricao={product.description} 
                 preco={product.price}
-                compravel={true}/>
+                compravel={true}
+                removiveu={false}/>
             ))
 
           }

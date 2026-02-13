@@ -96,4 +96,37 @@ class HomeController extends Controller
     $dados = ['quantTotal'=> $quantTotal,'precoTotal'=> $precoTotal];
     return [$dados, $products];
   }
+  //
+  //
+  public function removeProduct(Request $Request){
+
+    $data = $Request->validate([
+      'id_product' => 'required|integer'
+    ]);
+
+    $user = $Request->user();
+
+    $order = Order::where('id_user', $user->id)->first();
+
+    if(!$order){
+      return response()->json(['message' => 'Nenhum pedido encontrado'], 404);
+    }
+
+    $orderItem = OrderItem::where('id_order', $order->id)
+                          ->where('id_product', $data['id_product'])
+                          ->first();
+
+    if(!$orderItem){
+      return response()->json(['message' => 'Produto não encontrado no carrinho'], 404);
+    }
+
+    if($orderItem->quantity > 1){
+      $orderItem->quantity -= 1;
+      $orderItem->save();
+    }else{
+      $orderItem->delete();
+    }
+
+    return response()->json(['message' => 'Produto removido do carrinho com sucesso']);
+  }
 }
